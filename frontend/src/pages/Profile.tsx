@@ -6,7 +6,7 @@ import { Input } from "../components/ui/input";
 import { toast } from "sonner";
 
 const Profile: React.FC = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { loading: authLoading } = useAuth();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [wishlist, setWishlist] = useState<any[]>([]);
