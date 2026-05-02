@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function Cart() {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5006/api/cart', {
+        const response = await fetch(API_ENDPOINTS.CART.GET, {
           headers: {
             'x-auth-token': token || ''
           }
@@ -86,7 +87,7 @@ export default function Cart() {
                 onClick={async () => {
                   try {
                     const token = localStorage.getItem('token');
-                    const response = await fetch('http://localhost:5006/api/orders/place', {
+                    const response = await fetch(API_ENDPOINTS.ORDERS.PLACE, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',

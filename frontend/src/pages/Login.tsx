@@ -10,6 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { toast } from "sonner";
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Login() {
     const { login } = useAuth();
@@ -77,8 +78,9 @@ export default function Login() {
       }
     };
 
-    const handleGoogleLogin = () => {
-      window.location.href = 'http://localhost:5006/api/auth/google';
+    const handleGoogleLogin = async () => {
+      const response = await fetch(API_ENDPOINTS.AUTH.GOOGLE);
+      window.location.href = response.url;
     };
 
     return (

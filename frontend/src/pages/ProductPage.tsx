@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Star, ShoppingCart, Heart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { API_ENDPOINTS } from '../config/api';
 
 interface Product {
   _id: string;
@@ -45,7 +45,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       if (!id) return;
       try {
-        const response = await fetch(`http://localhost:5006/api/products/${id}`);
+        const response = await fetch(API_ENDPOINTS.PRODUCTS.BY_ID(id));
         const data = await response.json();
         if (response.ok) {
           setProduct(data);
@@ -65,7 +65,7 @@ export default function ProductPage() {
       if (!isAuthenticated || !id) return setInWishlist(false);
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:5006/api/wishlist', {
+        const res = await fetch(API_ENDPOINTS.WISHLIST.GET, {
           headers: { 'x-auth-token': token || '' }
         });
         if (res.ok) {
@@ -84,8 +84,8 @@ export default function ProductPage() {
     const token = localStorage.getItem('token');
     try {
       const url = inWishlist
-        ? `http://localhost:5006/api/wishlist/remove`
-        : `http://localhost:5006/api/wishlist/add`;
+        ? API_ENDPOINTS.WISHLIST.REMOVE
+        : API_ENDPOINTS.WISHLIST.ADD;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -115,7 +115,7 @@ export default function ProductPage() {
     if (!product) return;
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5006/api/cart/add', {
+      const response = await fetch(API_ENDPOINTS.CART.ADD, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

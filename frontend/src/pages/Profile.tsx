@@ -4,6 +4,7 @@ import { Card } from "../components/ui/card";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { toast } from "sonner";
+import { API_ENDPOINTS } from '../config/api';
 
 const Profile: React.FC = () => {
   const { loading: authLoading } = useAuth();
@@ -20,14 +21,14 @@ const Profile: React.FC = () => {
         return;
       }
       try {
-        const res = await fetch("http://localhost:5006/api/auth/me", {
+        const res = await fetch(API_ENDPOINTS.AUTH.ME, {
           headers: { "x-auth-token": token },
         });
         if (!res.ok) throw new Error("Failed to fetch profile");
         const data = await res.json();
         setProfile(data);
         // Fetch wishlist
-        const wishlistRes = await fetch("http://localhost:5006/api/wishlist", {
+        const wishlistRes = await fetch(API_ENDPOINTS.WISHLIST.GET, {
           headers: { "x-auth-token": token },
         });
         if (wishlistRes.ok) {

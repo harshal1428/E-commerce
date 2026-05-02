@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { API_ENDPOINTS } from '../config/api';
 
 const categories = [
   'Electronics',
@@ -68,7 +69,7 @@ export default function ProductForm() {
         stock: formData.stock ? Number(formData.stock) : 0
       };
 
-      const response = await fetch('http://localhost:5006/api/products', {
+      const response = await fetch(API_ENDPOINTS.PRODUCTS.CREATE, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

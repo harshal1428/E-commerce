@@ -50,7 +50,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       if (!isAuthenticated) return setInWishlist(false);
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:5006/api/wishlist', {
+        const res = await fetch('https://e-commerce-wqvc.onrender.com/api/wishlist', {
           headers: { 'x-auth-token': token || '' }
         });
         if (res.ok) {
@@ -78,7 +78,7 @@ const ProductCard = ({ product }: { product: Product }) => {
     }
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5006/api/cart/add', {
+      const response = await fetch('https://e-commerce-wqvc.onrender.com/api/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,8 +106,8 @@ const ProductCard = ({ product }: { product: Product }) => {
     const token = localStorage.getItem('token');
     try {
       const url = inWishlist
-        ? 'http://localhost:5006/api/wishlist/remove'
-        : 'http://localhost:5006/api/wishlist/add';
+        ? 'https://e-commerce-wqvc.onrender.com/api/wishlist/remove'
+        : 'https://e-commerce-wqvc.onrender.com/api/wishlist/add';
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -224,7 +224,7 @@ export default function CategoryPage({ category, title, description }: CategoryP
       
       if (search) params.append('search', search);
       
-      const response = await fetch(`http://localhost:5006/api/products?${params}`);
+      const response = await fetch(`https://e-commerce-wqvc.onrender.com/api/products?${params}`);
       const data: ApiResponse = await response.json();
       
       if (response.ok) {

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Orders() {
   const { isAuthenticated } = useAuth();
@@ -14,7 +15,7 @@ export default function Orders() {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5006/api/orders', {
+        const response = await fetch(API_ENDPOINTS.ORDERS.GET, {
           headers: {
             'x-auth-token': token || ''
           }
